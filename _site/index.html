@@ -183,19 +183,13 @@
         </h3>
         
         <div class="post-content-preview">
-            
-    
-    一言以蔽之，优先级。
-    这个优先级并不是由谁或者哪个Boss定的，而是长期的市场竞争和业务需求下的结果
-    
-    
-    
-        为什么企鹅家的App用户体验较好？
-        
-    
-    企鹅家的主力产品，QQ、微信、QQ音乐、QQ空间 等，多是IM（即时通讯）、SNS（社交网络）、数字娱乐 等形态的产品。
-    
-    这类产...
+            算法简介
+
+归并排序是建立在归并操作上的一种有效的排序算法，该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为二路归并。
+
+归并排序的基本思想
+
+将待排序序列R[0…n-1]看成是n个长度为1的有序序列，将相邻的有序表成对归并，得到n/2个长度...
         </div>
     </a>
     <p class="post-meta">
@@ -205,35 +199,89 @@
 <hr>
 
 <div class="post-preview">
-    <a href="/2014/10/01/why-alibaba-ux-sucks/">
+    <a href="/2016/03/28/iOS-memory/">
         <h2 class="post-title">
-            「知乎」为什么阿里系软件体验都不好？
+            iOS 引用计数
         </h2>
         
         <h3 class="post-subtitle">
-            或许这就是所谓的企业 DNA 
+            assign、retain、copy
+        </h3>
+        
+        <div class="post-content-preview">
+            assign
+简单赋值，不改变引用计数
+适用与基本类型（NSInteger）和C基本类型
+
+-(void)setCount:(int)count{
+    _count = count;
+}
+
+
+
+retain
+指针拷贝，retain创建一个指针，原对象引用计数+1
+
+-(void)setDog:(Dog *)dog{
+    if(_dog != dog){
+        [_dog r...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by PhoenixDo on March 28, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/03/28/heapSort/">
+        <h2 class="post-title">
+            堆排序
+        </h2>
+        
+        <h3 class="post-subtitle">
+            递归
+        </h3>
+        
+        <div class="post-content-preview">
+            算法简介
+
+堆是一棵顺序存储的完全二叉树。
+其中每个结点的关键字都不大于其孩子结点的关键字，这样的堆称为小根堆。
+其中每个结点的关键字都不小于其孩子结点的关键字，这样的堆称为大根堆。
+举例来说，对于n个元素的序列{R0, R1, … , Rn}当且仅当满足下列关系之一时，称之为堆：
+      (1) Ri &lt;= R2i+1 且 Ri &lt;= R2i+2 (小根堆)
+      (...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by PhoenixDo on March 28, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/02/01/React-vs-Angular2/">
+        <h2 class="post-title">
+            React vs Angular 2：冰与火之歌「译」
+        </h2>
+        
+        <h3 class="post-subtitle">
+            React versus Angular 2: There Will Be Blood
         </h3>
         
         <div class="post-content-preview">
             
-  这篇文章转载自我在知乎上的回答
+  这篇文章转载自我在知乎专栏「前端外刊评论」上发表的文章。
 
 
+Angular 2 已经发布 Beta 版，而且似乎很有信心在 2016 年成为热门框架。是时候进行一场巅峰对决了，我们来看看它如何与 React 这个 2015 年的新宠抗衡。
 
-    
-    一言以蔽之，优先级。
-    这个优先级并不是由谁或者哪个Boss定的，而是长期的市场竞争和业务需求下的结果
-    
-    
-    
-        为什么企鹅家的App用户体验较好？
-        
-    
-    企鹅家的主力产品，QQ、微信、QQ音乐、QQ空间 等，多是IM（即时通讯）、SNS（社交网络）、数字娱乐...
+免责声明：我之前很喜欢使用 Angular 1，不过在 2015 年转到了 React。最近我也在 Pluralsight 上发布了一门关于 R...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Hux on October 1, 2014
+        Posted by Hux on February 1, 2016
     </p>
 </div>
 <hr>
@@ -260,6 +308,20 @@
                         
                             
                         
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#算法" title="算法" rel="2">
+                                    算法
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#排序" title="排序" rel="2">
+                                    排序
+                                </a>
                             
                         
                             

@@ -1,0 +1,80 @@
+---
+layout:     post
+title:      "堆排序"
+subtitle:   "递归"
+date:       2016-03-28 12:00:00
+author:     "PhoenixDo"
+header-img: "img/post-bg-alibaba.jpg"
+catalog:    true
+tags:
+    - 算法
+    - 排序
+---
+
+## 算法简介
+
+堆是一棵顺序存储的完全二叉树。
+其中每个结点的关键字都不大于其孩子结点的关键字，这样的堆称为小根堆。
+其中每个结点的关键字都不小于其孩子结点的关键字，这样的堆称为大根堆。
+举例来说，对于n个元素的序列{R0, R1, ... , Rn}当且仅当满足下列关系之一时，称之为堆：<br>
+      (1) Ri <= R2i+1 且 Ri <= R2i+2 (小根堆)<br>
+      (2) Ri >= R2i+1 且 Ri >= R2i+2 (大根堆)
+
+![堆](/img/heap.jpg)
+
+## 归并排序的基本思想
+
+使用原数组构造大顶堆，然后将对顶数据节点与array[n-1]进行互换，之后将新数组重新构造。
+
+## 实现代码
+对应节点与子数进行比较
+
+```
+void heapAdjust(int arr[],int parent,int length){
+    int key = arr[parent];
+    int child = parent * 2 + 1;
+    while (child<length) {
+        if (child + 1 < length  && arr[child+1]>arr[child]) {
+            child++;
+        }
+
+        if(key > arr[child])break;
+        arr[parent] = arr[child];
+        parent = child;
+        child = child*2 + 1;
+
+    }
+    arr[parent] = key;
+}
+```
+初始进行遍历
+
+```
+void heapSort(int arr[],int length){
+    int mid = length /2;
+    for (int i=mid; i>=0; i--) {
+        heapAdjust(arr, i, length);
+    }
+
+    for (int j=length-1;j>=0; j--) {
+        int temp = arr[0];
+        arr[0] = arr[j];
+        arr[j]=temp;
+
+        heapAdjust(arr, 0, j);
+    }
+}
+```
+调用方法
+
+```
+HeapSort(){
+        size_leng = 5;
+        arr_lala = new int[size_leng];
+        for (int p=0; p<size_leng; p++) {
+            arr_lala[p] = 10 - p;
+        }
+
+        heapSort(arr_lala,size_leng);
+    }
+```
