@@ -1,6 +1,6 @@
 #zunda's Blog
 
-###[View Live Hux Blog &rarr;](http://zunda.github.io)
+###[View 小鶸菌's Blog &rarr;](http://saberzun.github.io/)
 
 ![](http://huangxuan.me/img/blog-desktop.jpg)
 
