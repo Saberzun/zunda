@@ -1,6 +1,6 @@
-#Hux Blog
+#zunda's Blog
 
-###[View Live Hux Blog &rarr;](http://huxpro.github.io)
+###[View Live Hux Blog &rarr;](http://zunda.github.io)
 
 ![](http://huangxuan.me/img/blog-desktop.jpg)
 
