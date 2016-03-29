@@ -1,6 +1,6 @@
 # Site settings
-title: zund Blog
-SEOTitle: 遵达的博客 | Hux Blog
+title: zunda Blog
+SEOTitle: 遵达的博客 | Phoenixdo Blog
 header-img: img/zunda_backgrond.jpg
 email: zunda001@163.com
 description: "iOS Android"
@@ -86,7 +86,7 @@ friends: [
         href: "http://wenzhiquan.github.io"
     },
     {
-        title: "肖楚天"，
+        title: "肖楚天",
         href: "http://xiaochutian.github.io"
     }
 ]
