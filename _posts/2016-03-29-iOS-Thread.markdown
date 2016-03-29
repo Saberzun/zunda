@@ -85,6 +85,7 @@ NSOperation可以调⽤start⽅法来执⾏任务,但默认是同步执行的,�
 优点：不需要关系线程管理、同步的问题。
 ## GCD
 GCD有三种队列方式，主程序队列、系统线程队列和用户自定义队列
+
 ```
 //主程序队列
 dispath_queue_t queue =  dispath_get_main_queue();
