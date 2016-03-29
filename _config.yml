@@ -1,22 +1,22 @@
 # Site settings
-title: PhoenixDo
-SEOTitle: 遵达的博客 | Zunda‘s’ Blog
+title: zund Blog
+SEOTitle: 遵达的博客 | Hux Blog
 header-img: img/zunda_backgrond.jpg
 email: zunda001@163.com
-description: "这是测试模板的样例"
-keyword: "遵达, 遵达的博客，PhoenixDo"
-url: ""             					# your host, for absolute URL
+description: "iOS Android"
+keyword: ""
+url: "saberzun.github.io"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
 
 
 # SNS settings
 RSS: false
-weibo_username:     saberzun	
-zhihu_username:     
-github_username:    
+weibo_username:     2150869623
+zhihu_username:     zunda
+github_username:    saberzun
 #twitter_username:  huxpro
-facebook_username:  
+facebook_username:  zundaphoenix
 
 
 
@@ -47,12 +47,12 @@ kramdown:
 
 
 # Disqus settings
-#disqus_username: _your_disqus_short_name_
+disqus_username: saberzungithubio
 
 # Duoshuo settings
-duoshuo_username: huxblog
+#duoshuo_username: huxblog
 # Share component is depend on Comment so we can NOT use share only.
-duoshuo_share: true                     # set to false if you want to use Comment without Sharing
+#duoshuo_share: true                     # set to false if you want to use Comment without Sharing
 
 
 
@@ -62,7 +62,7 @@ duoshuo_share: true                     # set to false if you want to use Commen
 ba_track_id: 4cc1f2d8f3067386cc5cdb626a202900
 # Google Analytics
 ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
-ga_domain: saberzun.github.io
+ga_domain: huangxuan.me
 
 
 
@@ -81,4 +81,8 @@ featured-condition-size: 1              # A tag will be featured if the size of 
 
 # Friends
 friends: [
+    {
+        title: "温智全",
+        href: "http://wenzhiquan.github.io"
+    }
 ]

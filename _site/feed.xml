@@ -1,13 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>PhoenixDo</title>
-    <description>这是测试模板的样例</description>
-    <link>/</link>
-    <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 28 Mar 2016 22:24:24 +0800</pubDate>
-    <lastBuildDate>Mon, 28 Mar 2016 22:24:24 +0800</lastBuildDate>
+    <title>zund Blog</title>
+    <description>iOS Android</description>
+    <link>saberzun.github.io/</link>
+    <atom:link href="saberzun.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Tue, 29 Mar 2016 15:56:54 +0800</pubDate>
+    <lastBuildDate>Tue, 29 Mar 2016 15:56:54 +0800</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>iOS 多线程技术</title>
+        <description>&lt;h2 id=&quot;ios&quot;&gt;iOS多线程技术&lt;/h2&gt;
+&lt;p&gt;（1）、NSThread&lt;br /&gt;
+（2）、NSOperation&lt;br /&gt;
+（3）、GCD   Grand Central Dispatch&lt;/p&gt;
+
+&lt;h2 id=&quot;nsthread&quot;&gt;NSThread&lt;/h2&gt;
+
+&lt;p&gt;线程声明和调用方法：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(1) [NSThread detachNewThreadSelector:@selector(threadMethod:) toTarget:self withObject:nil];
+
+(2) NSThread *myThread = [[NSThread alloc] initWithTarget:self selector:@selector(threadMethod) object:nil];
+
+(3) [obj performSelectorInBackground:@selector(threadMethod) withObject:nil];
+
+(4) //调用主线程 object为向主线程方法传递的数据对象
+    [self performSelectorOnMainThread:@selector(mainMethod) withObject:object waitUnitDone:YES];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在ViewController中运行一个Thread，当Thread还在运行期间，ViewController被release时，Thread并不会结束，而且ViewController也不会销毁，不会执行dealloc方法。&lt;/p&gt;
+
+&lt;h5 id=&quot;section&quot;&gt;优缺点：&lt;/h5&gt;
+&lt;p&gt;优点：NSThread相对轻量级；&lt;br /&gt;
+缺点：需要自己管理线程的生命周期，线程同步。线程同步对数据的加锁操作会增加系统开销。&lt;/p&gt;
+
+&lt;h2 id=&quot;nsoperation&quot;&gt;NSOperation&lt;/h2&gt;
+
+&lt;p&gt;NSOperation有两种执行方式：并发执行、非并发执行；&lt;br /&gt;
+NSOperation有两种使用方式：系统定义（NSInvocationOperation、NSBlockOperation）和继承NSOperation&lt;/p&gt;
+
+&lt;p&gt;NSOperation和NSOperationQueue实现多线程的具体步骤：
+（1）先将需要执行的操作封装到一个NSOperation对象中
+（2）然后将NSOperation对象添加到NSOperationQueue中
+（3）系统会⾃动将NSOperationQueue中的NSOperation取出来
+（4）将取出的NSOperation封装的操作放到⼀条新线程中执⾏&lt;/p&gt;
+
+&lt;h4 id=&quot;nsinvocationoperation&quot;&gt;NSInvocationOperation子类创建对象、执行操作&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; NSInvocationOperation *operation=[[NSInvocationOperation alloc]initWithTarget:self selector:@selector(threadMethod) object:nil];
+
+ [operation start];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;tip: 操作对象默认在主线程中执行，只有添加到队列中才会开启新的线程。即默认情况下，如果操作没有放到队列中queue中，都是同步执行。只有将NSOperation放到一个NSOperationQueue中,才会异步执行操作&lt;/strong&gt;
+&lt;strong&gt;**&lt;/strong&gt;*
+#### NSBlockOperation子类创建对象、执行操作&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NSBlockOperation *operation=[NSBlockOperation blockOperationWithBlock:^{//操作}];
+
+//operation添加操作
+[operation addExecutionBlock:^{//操作}];
+[operation start];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;tip: 当NSBlockOperation中的操作(Block)数&amp;gt;1, 执行operation就会异步进行执行&lt;/strong&gt;
+&lt;strong&gt;**&lt;/strong&gt;**
+#### NSOperationQueue创建、添加operation&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NSOperationQueue *myqueue = [[NSOperationQueue alloc] init];
+[myqueue addOperation:operation_1];
+[myqueue addOperation:operation_2];
+
+[myqueue addOperationWithBlock:^(//操作)];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;NSOperation可以调⽤start⽅法来执⾏任务,但默认是同步执行的,如果将NSOperation添加到NSOperationQueue(操作队列)中,系统会自动&lt;strong&gt;异步&lt;/strong&gt;执行NSOperation中的操作&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;添加操作到NSOperationQueue中，operation会自动执行操作，自动开启线程&lt;/strong&gt;
+##### 优缺点
+优点：不需要关系线程管理、同步的问题。
+## GCD
+GCD有三种队列方式，主程序队列、系统线程队列和用户自定义队列
+```
+//主程序队列
+dispath_queue_t queue =  dispath_get_main_queue();&lt;/p&gt;
+
+&lt;p&gt;//系统线程队列
+dispath_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);&lt;/p&gt;
+
+&lt;p&gt;//用户自定义队列
+dispath_queue_t queue = dispath_queue_create(“myqueue”,NULL);&lt;/p&gt;
+
+&lt;p&gt;//同步运行
+dispath_async(queue,^{//操作})；&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+</description>
+        <pubDate>Mon, 28 Mar 2016 20:00:00 +0800</pubDate>
+        <link>saberzun.github.io/2016/03/28/iOS-Thread/</link>
+        <guid isPermaLink="true">saberzun.github.io/2016/03/28/iOS-Thread/</guid>
+        
+        <category>线程</category>
+        
+        <category>iOS</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>复制一个带随机指针的链表</title>
+        <description>&lt;h2 id=&quot;section&quot;&gt;题目&lt;/h2&gt;
+&lt;p&gt;有一个链表L,其每个节点有2个指针，一个指针next指向链表的下个节点，另一个random随机指向链表中的任一个节点，可能是自己或者为空，写一个程序，要求复制这个链表的结构并分析其复杂性&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/copy_random_link.jpg&quot; alt=&quot;赋值链表random&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;思路&lt;/h2&gt;
+&lt;p&gt;如上图所示，复制原链表，需要先将原链表数据节点翻倍并顺序连接&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    A-&amp;gt;A`-&amp;gt;B-&amp;gt;B`-&amp;gt;C-&amp;gt;C`-&amp;gt;D-&amp;gt;D`
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;根据原节点中random指针连接对应的复制节点&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  A-&amp;gt;C  ::  A`-&amp;gt;C`
+
+  Radom_node = T-&amp;gt;random;
+  T-&amp;gt;next-&amp;gt;random = Radom_node;
+  T = T-&amp;gt;next-&amp;gt;next;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;random复制完成之后，将新链表中的原链表节点删除&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;T-&amp;gt;next = T-&amp;gt;next-&amp;gt;text;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 28 Mar 2016 20:00:00 +0800</pubDate>
+        <link>saberzun.github.io/2016/03/28/copy_random_link/</link>
+        <guid isPermaLink="true">saberzun.github.io/2016/03/28/copy_random_link/</guid>
+        
+        <category>算法</category>
+        
+        <category>链表</category>
+        
+        
+      </item>
     
       <item>
         <title>归并排序</title>
@@ -93,8 +233,8 @@
 &lt;/div&gt;
 </description>
         <pubDate>Mon, 28 Mar 2016 20:00:00 +0800</pubDate>
-        <link>/2016/03/28/merge/</link>
-        <guid isPermaLink="true">/2016/03/28/merge/</guid>
+        <link>saberzun.github.io/2016/03/28/merge/</link>
+        <guid isPermaLink="true">saberzun.github.io/2016/03/28/merge/</guid>
         
         <category>算法</category>
         
@@ -139,8 +279,8 @@
 &lt;/div&gt;
 </description>
         <pubDate>Mon, 28 Mar 2016 20:00:00 +0800</pubDate>
-        <link>/2016/03/28/iOS-memory/</link>
-        <guid isPermaLink="true">/2016/03/28/iOS-memory/</guid>
+        <link>saberzun.github.io/2016/03/28/iOS-memory/</link>
+        <guid isPermaLink="true">saberzun.github.io/2016/03/28/iOS-memory/</guid>
         
         <category>内存管理</category>
         
@@ -220,8 +360,8 @@
 &lt;/div&gt;
 </description>
         <pubDate>Mon, 28 Mar 2016 20:00:00 +0800</pubDate>
-        <link>/2016/03/28/heapSort/</link>
-        <guid isPermaLink="true">/2016/03/28/heapSort/</guid>
+        <link>saberzun.github.io/2016/03/28/heapSort/</link>
+        <guid isPermaLink="true">saberzun.github.io/2016/03/28/heapSort/</guid>
         
         <category>算法</category>
         
@@ -469,8 +609,8 @@
 本文由 &lt;a href=&quot;https://www.zhihu.com/people/li-ling-hao&quot;&gt;@李凌豪&lt;/a&gt; &lt;a href=&quot;https://www.zhihu.com/people/huxpro&quot;&gt;@黄玄&lt;/a&gt; 联合翻译，首次发布于&lt;a href=&quot;http://zhuanlan.zhihu.com/FrontendMagazine&quot;&gt;前端外刊评论 · 知乎专栏&lt;/a&gt;，转载请保留原文链接 ;)&lt;/p&gt;
 </description>
         <pubDate>Mon, 01 Feb 2016 20:00:00 +0800</pubDate>
-        <link>/2016/02/01/React-vs-Angular2/</link>
-        <guid isPermaLink="true">/2016/02/01/React-vs-Angular2/</guid>
+        <link>saberzun.github.io/2016/02/01/React-vs-Angular2/</link>
+        <guid isPermaLink="true">saberzun.github.io/2016/02/01/React-vs-Angular2/</guid>
         
         <category>前端开发</category>
         

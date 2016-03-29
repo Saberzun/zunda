@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>iOS 多线程技术 - 遵达的博客 | Hux Blog</title>
+    <title>复制一个带随机指针的链表 - 遵达的博客 | Hux Blog</title>
 
-    <link rel="canonical" href="saberzun.github.io/2016/03/28/iOS-Thread/">
+    <link rel="canonical" href="saberzun.github.io/2016/03/28/copy_random_link/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -163,15 +163,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#线程" title="线程">线程</a>
+                        <a class="tag" href="/tags/#算法" title="算法">算法</a>
                         
-                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        <a class="tag" href="/tags/#链表" title="链表">链表</a>
                         
                     </div>
-                    <h1>iOS 多线程技术</h1>
+                    <h1>复制一个带随机指针的链表</h1>
                     
                     
-                    <h2 class="subheading">NSThread、NSOperation、GCD</h2>
+                    <h2 class="subheading">链表的random指针</h2>
                     
                     <span class="meta">Posted by PhoenixDo on March 28, 2016</span>
                 </div>
@@ -191,93 +191,31 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h2 id="ios">iOS多线程技术</h2>
-<p>（1）、NSThread<br />
-（2）、NSOperation<br />
-（3）、GCD   Grand Central Dispatch</p>
+				<h2 id="section">题目</h2>
+<p>有一个链表L,其每个节点有2个指针，一个指针next指向链表的下个节点，另一个random随机指向链表中的任一个节点，可能是自己或者为空，写一个程序，要求复制这个链表的结构并分析其复杂性</p>
 
-<h2 id="nsthread">NSThread</h2>
+<p><img src="/img/copy_random_link.jpg" alt="赋值链表random" /></p>
 
-<p>线程声明和调用方法：</p>
+<h2 id="section-1">思路</h2>
+<p>如上图所示，复制原链表，需要先将原链表数据节点翻倍并顺序连接</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>(1) [NSThread detachNewThreadSelector:@selector(threadMethod:) toTarget:self withObject:nil];
-
-(2) NSThread *myThread = [[NSThread alloc] initWithTarget:self selector:@selector(threadMethod) object:nil];
-
-(3) [obj performSelectorInBackground:@selector(threadMethod) withObject:nil];
-
-(4) //调用主线程 object为向主线程方法传递的数据对象
-    [self performSelectorOnMainThread:@selector(mainMethod) withObject:object waitUnitDone:YES];
+<div class="highlighter-rouge"><pre class="highlight"><code>    A-&gt;A`-&gt;B-&gt;B`-&gt;C-&gt;C`-&gt;D-&gt;D`
 </code></pre>
 </div>
+<p>根据原节点中random指针连接对应的复制节点</p>
 
-<p>在ViewController中运行一个Thread，当Thread还在运行期间，ViewController被release时，Thread并不会结束，而且ViewController也不会销毁，不会执行dealloc方法。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>  A-&gt;C  ::  A`-&gt;C`
 
-<h5 id="section">优缺点：</h5>
-<p>优点：NSThread相对轻量级；<br />
-缺点：需要自己管理线程的生命周期，线程同步。线程同步对数据的加锁操作会增加系统开销。</p>
-
-<h2 id="nsoperation">NSOperation</h2>
-
-<p>NSOperation有两种执行方式：并发执行、非并发执行；<br />
-NSOperation有两种使用方式：系统定义（NSInvocationOperation、NSBlockOperation）和继承NSOperation</p>
-
-<p>NSOperation和NSOperationQueue实现多线程的具体步骤：
-（1）先将需要执行的操作封装到一个NSOperation对象中
-（2）然后将NSOperation对象添加到NSOperationQueue中
-（3）系统会⾃动将NSOperationQueue中的NSOperation取出来
-（4）将取出的NSOperation封装的操作放到⼀条新线程中执⾏</p>
-
-<h4 id="nsinvocationoperation">NSInvocationOperation子类创建对象、执行操作</h4>
-
-<div class="highlighter-rouge"><pre class="highlight"><code> NSInvocationOperation *operation=[[NSInvocationOperation alloc]initWithTarget:self selector:@selector(threadMethod) object:nil];
-
- [operation start];
+  Radom_node = T-&gt;random;
+  T-&gt;next-&gt;random = Radom_node;
+  T = T-&gt;next-&gt;next;
 </code></pre>
 </div>
-<p><strong>tip: 操作对象默认在主线程中执行，只有添加到队列中才会开启新的线程。即默认情况下，如果操作没有放到队列中queue中，都是同步执行。只有将NSOperation放到一个NSOperationQueue中,才会异步执行操作</strong>
-<strong>**</strong>*
-#### NSBlockOperation子类创建对象、执行操作</p>
+<p>random复制完成之后，将新链表中的原链表节点删除</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>NSBlockOperation *operation=[NSBlockOperation blockOperationWithBlock:^{//操作}];
-
-//operation添加操作
-[operation addExecutionBlock:^{//操作}];
-[operation start];
+<div class="highlighter-rouge"><pre class="highlight"><code>T-&gt;next = T-&gt;next-&gt;text;
 </code></pre>
 </div>
-<p><strong>tip: 当NSBlockOperation中的操作(Block)数&gt;1, 执行operation就会异步进行执行</strong>
-<strong>**</strong>**
-#### NSOperationQueue创建、添加operation</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>NSOperationQueue *myqueue = [[NSOperationQueue alloc] init];
-[myqueue addOperation:operation_1];
-[myqueue addOperation:operation_2];
-
-[myqueue addOperationWithBlock:^(//操作)];
-</code></pre>
-</div>
-<p>NSOperation可以调⽤start⽅法来执⾏任务,但默认是同步执行的,如果将NSOperation添加到NSOperationQueue(操作队列)中,系统会自动<strong>异步</strong>执行NSOperation中的操作</p>
-
-<p><strong>添加操作到NSOperationQueue中，operation会自动执行操作，自动开启线程</strong>
-##### 优缺点
-优点：不需要关系线程管理、同步的问题。
-## GCD
-GCD有三种队列方式，主程序队列、系统线程队列和用户自定义队列
-```
-//主程序队列
-dispath_queue_t queue =  dispath_get_main_queue();</p>
-
-<p>//系统线程队列
-dispath_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);</p>
-
-<p>//用户自定义队列
-dispath_queue_t queue = dispath_queue_create(“myqueue”,NULL);</p>
-
-<p>//同步运行
-dispath_async(queue,^{//操作})；</p>
-
-<p>```</p>
 
 
                 <hr>
@@ -288,12 +226,19 @@ dispath_async(queue,^{//操作})；</p>
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2016/03/28/copy_random_link/" data-toggle="tooltip" data-placement="top" title="复制一个带随机指针的链表">
+                        <a href="/2016/03/28/merge/" data-toggle="tooltip" data-placement="top" title="归并排序">
                         Previous<br>
-                        <span>复制一个带随机指针的链表</span>
+                        <span>归并排序</span>
                         </a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/2016/03/28/iOS-Thread/" data-toggle="tooltip" data-placement="top" title="iOS 多线程技术">
+                        Next<br>
+                        <span>iOS 多线程技术</span>
+                        </a>
+                    </li>
                     
                 </ul>
 
@@ -398,8 +343,8 @@ dispath_async(queue,^{//操作})；</p>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "saberzungithubio";
-    var disqus_identifier = "/2016/03/28/iOS-Thread";
-    var disqus_url = "saberzun.github.io/2016/03/28/iOS-Thread/";
+    var disqus_identifier = "/2016/03/28/copy_random_link";
+    var disqus_url = "saberzun.github.io/2016/03/28/copy_random_link/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
