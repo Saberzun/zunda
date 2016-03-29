@@ -57,7 +57,7 @@ NSOperation和NSOperationQueue实现多线程的具体步骤：
  [operation start];
 ```
 **tip: 操作对象默认在主线程中执行，只有添加到队列中才会开启新的线程。即默认情况下，如果操作没有放到队列中queue中，都是同步执行。只有将NSOperation放到一个NSOperationQueue中,才会异步执行操作**
-*******
+
 #### NSBlockOperation子类创建对象、执行操作
 
 ```
@@ -68,7 +68,8 @@ NSBlockOperation *operation=[NSBlockOperation blockOperationWithBlock:^{//操作
 [operation start];
 ```
 **tip: 当NSBlockOperation中的操作(Block)数>1, 执行operation就会异步进行执行**
-********
+<br>
+
 #### NSOperationQueue创建、添加operation
 
 ```
@@ -81,8 +82,11 @@ NSOperationQueue *myqueue = [[NSOperationQueue alloc] init];
 NSOperation可以调⽤start⽅法来执⾏任务,但默认是同步执行的,如果将NSOperation添加到NSOperationQueue(操作队列)中,系统会自动**异步**执行NSOperation中的操作
 
 **添加操作到NSOperationQueue中，operation会自动执行操作，自动开启线程**
+ <br>
+
 ##### 优缺点
 优点：不需要关系线程管理、同步的问题。
+
 ## GCD
 GCD有三种队列方式，主程序队列、系统线程队列和用户自定义队列
 

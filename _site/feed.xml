@@ -5,8 +5,8 @@
     <description>iOS Android</description>
     <link>http://saberzun.github.io/</link>
     <atom:link href="http://saberzun.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 29 Mar 2016 16:32:48 +0800</pubDate>
-    <lastBuildDate>Tue, 29 Mar 2016 16:32:48 +0800</lastBuildDate>
+    <pubDate>Tue, 29 Mar 2016 16:57:45 +0800</pubDate>
+    <lastBuildDate>Tue, 29 Mar 2016 16:57:45 +0800</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
     
       <item>
@@ -55,9 +55,9 @@ NSOperation有两种使用方式：系统定义（NSInvocationOperation、NSBloc
  [operation start];
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;tip: 操作对象默认在主线程中执行，只有添加到队列中才会开启新的线程。即默认情况下，如果操作没有放到队列中queue中，都是同步执行。只有将NSOperation放到一个NSOperationQueue中,才会异步执行操作&lt;/strong&gt;
-&lt;strong&gt;**&lt;/strong&gt;*
-#### NSBlockOperation子类创建对象、执行操作&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;tip: 操作对象默认在主线程中执行，只有添加到队列中才会开启新的线程。即默认情况下，如果操作没有放到队列中queue中，都是同步执行。只有将NSOperation放到一个NSOperationQueue中,才会异步执行操作&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;nsblockoperation&quot;&gt;NSBlockOperation子类创建对象、执行操作&lt;/h4&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NSBlockOperation *operation=[NSBlockOperation blockOperationWithBlock:^{//操作}];
 
@@ -67,8 +67,9 @@ NSOperation有两种使用方式：系统定义（NSInvocationOperation、NSBloc
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;tip: 当NSBlockOperation中的操作(Block)数&amp;gt;1, 执行operation就会异步进行执行&lt;/strong&gt;
-&lt;strong&gt;**&lt;/strong&gt;**
-#### NSOperationQueue创建、添加operation&lt;/p&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;nsoperationqueueoperation&quot;&gt;NSOperationQueue创建、添加operation&lt;/h4&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NSOperationQueue *myqueue = [[NSOperationQueue alloc] init];
 [myqueue addOperation:operation_1];
@@ -80,10 +81,13 @@ NSOperation有两种使用方式：系统定义（NSInvocationOperation、NSBloc
 &lt;p&gt;NSOperation可以调⽤start⽅法来执⾏任务,但默认是同步执行的,如果将NSOperation添加到NSOperationQueue(操作队列)中,系统会自动&lt;strong&gt;异步&lt;/strong&gt;执行NSOperation中的操作&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;添加操作到NSOperationQueue中，operation会自动执行操作，自动开启线程&lt;/strong&gt;
-##### 优缺点
-优点：不需要关系线程管理、同步的问题。
-## GCD
-GCD有三种队列方式，主程序队列、系统线程队列和用户自定义队列&lt;/p&gt;
+ &lt;br /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;section-1&quot;&gt;优缺点&lt;/h5&gt;
+&lt;p&gt;优点：不需要关系线程管理、同步的问题。&lt;/p&gt;
+
+&lt;h2 id=&quot;gcd&quot;&gt;GCD&lt;/h2&gt;
+&lt;p&gt;GCD有三种队列方式，主程序队列、系统线程队列和用户自定义队列&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//主程序队列
 dispath_queue_t queue =  dispath_get_main_queue();

@@ -235,9 +235,9 @@ NSOperation有两种使用方式：系统定义（NSInvocationOperation、NSBloc
  [operation start];
 </code></pre>
 </div>
-<p><strong>tip: 操作对象默认在主线程中执行，只有添加到队列中才会开启新的线程。即默认情况下，如果操作没有放到队列中queue中，都是同步执行。只有将NSOperation放到一个NSOperationQueue中,才会异步执行操作</strong>
-<strong>**</strong>*
-#### NSBlockOperation子类创建对象、执行操作</p>
+<p><strong>tip: 操作对象默认在主线程中执行，只有添加到队列中才会开启新的线程。即默认情况下，如果操作没有放到队列中queue中，都是同步执行。只有将NSOperation放到一个NSOperationQueue中,才会异步执行操作</strong></p>
+
+<h4 id="nsblockoperation">NSBlockOperation子类创建对象、执行操作</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>NSBlockOperation *operation=[NSBlockOperation blockOperationWithBlock:^{//操作}];
 
@@ -247,8 +247,9 @@ NSOperation有两种使用方式：系统定义（NSInvocationOperation、NSBloc
 </code></pre>
 </div>
 <p><strong>tip: 当NSBlockOperation中的操作(Block)数&gt;1, 执行operation就会异步进行执行</strong>
-<strong>**</strong>**
-#### NSOperationQueue创建、添加operation</p>
+<br /></p>
+
+<h4 id="nsoperationqueueoperation">NSOperationQueue创建、添加operation</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>NSOperationQueue *myqueue = [[NSOperationQueue alloc] init];
 [myqueue addOperation:operation_1];
@@ -260,10 +261,13 @@ NSOperation有两种使用方式：系统定义（NSInvocationOperation、NSBloc
 <p>NSOperation可以调⽤start⽅法来执⾏任务,但默认是同步执行的,如果将NSOperation添加到NSOperationQueue(操作队列)中,系统会自动<strong>异步</strong>执行NSOperation中的操作</p>
 
 <p><strong>添加操作到NSOperationQueue中，operation会自动执行操作，自动开启线程</strong>
-##### 优缺点
-优点：不需要关系线程管理、同步的问题。
-## GCD
-GCD有三种队列方式，主程序队列、系统线程队列和用户自定义队列</p>
+ <br /></p>
+
+<h5 id="section-1">优缺点</h5>
+<p>优点：不需要关系线程管理、同步的问题。</p>
+
+<h2 id="gcd">GCD</h2>
+<p>GCD有三种队列方式，主程序队列、系统线程队列和用户自定义队列</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>//主程序队列
 dispath_queue_t queue =  dispath_get_main_queue();
