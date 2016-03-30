@@ -91,8 +91,8 @@ __预处理-->编译-->汇编-->链接-->打包__
 
 作为一种新的模式，MVP与MVC有着一个重大的区别：在MVP中View并不直接使用Model，它们之间的通信是通过Presenter (MVC中的Controller)来进行的，所有的交互都发生在Presenter内部，而在MVC中View会直接从Model中读取数据而不是通过 Controller。<br>
 
-![mvc](/img/mvc.jpg)
-![mvp](/img/mvp.jpg)
+![mvc](/img/MVC.jpg)
+![mvp](/img/MVP.jpg)
 
 #### MVC存在的问题
 
