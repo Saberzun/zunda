@@ -37,7 +37,7 @@ tags:
 优点：NSThread相对轻量级；<br>
 缺点：需要自己管理线程的生命周期，线程同步。线程同步对数据的加锁操作会增加系统开销。
 
-## NSOperation
+## NSOperationQueue
 
 NSOperation有两种执行方式：并发执行、非并发执行；<br>
 NSOperation有两种使用方式：系统定义（NSInvocationOperation、NSBlockOperation）和继承NSOperation
@@ -66,6 +66,12 @@ NSBlockOperation *operation=[NSBlockOperation blockOperationWithBlock:^{//操作
 //operation添加操作
 [operation addExecutionBlock:^{//操作}];
 [operation start];
+
+//添加依赖 operation_1执行完毕之后再执行operation
+[operation addDependency:operation_1];
+
+//设置completionBlock 当BlockOperation执行完毕后运行completionBlock
+operation.completionBlock = ^{//do something };
 ```
 **tip: 当NSBlockOperation中的操作(Block)数>1, 执行operation就会异步进行执行**
 <br>
@@ -90,11 +96,13 @@ NSOperation可以调⽤start⽅法来执⾏任务,但默认是同步执行的,�
 ## GCD
 GCD有三种队列方式，主程序队列、系统线程队列和用户自定义队列
 
+GCD可用于解决数据锁定、资源泄露的问题。 __但GCD并不能完全避免死锁的产生__
+
 ```
 //主程序队列
 dispath_queue_t queue =  dispath_get_main_queue();
 
-//系统线程队列
+//系统线程队列  全局共有
 dispath_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
 
 //用户自定义队列
