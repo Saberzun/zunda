@@ -5,7 +5,7 @@ header-img: img/zunda_backgrond.jpg
 email: zunda001@163.com
 description: "iOS Android"
 keyword: ""
-url: "http://saberzun.github.io"              # your host, for absolute URL
+url: "http://saberzun.github.io/zunda"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
 
@@ -68,7 +68,7 @@ disqus_username: saberzungithubio
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "iOS Android"
+sidebar-about-description: "iOS Android JAVA Server"
 sidebar-avatar: /img/zunda.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
