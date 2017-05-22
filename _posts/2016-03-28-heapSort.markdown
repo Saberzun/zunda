@@ -20,7 +20,7 @@ tags:
       (1) Ri <= R2i+1 且 Ri <= R2i+2 (小根堆)<br>
       (2) Ri >= R2i+1 且 Ri >= R2i+2 (大根堆)
 
-![堆](/img/heap.jpg)
+![堆](/zunda/img/heap.jpg)
 
 ## 归并排序的基本思想
 

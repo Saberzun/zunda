@@ -15,7 +15,7 @@ tags:
 
 ### 常用的controller
 
-![iOS UIView](/img/UIKit.jpg)
+![iOS UIView](/zunda/img/UIKit.jpg)
 
 UINavigationController 中A--》B--》C，如何直接从C中跳转回A<br>
 __可以多次调用popViewControllerAnimated     <br> 或者使用popToRootViewControllerAnimated直接回到root view__
@@ -52,15 +52,15 @@ SDWebImage
 
 #### Breakpoint
 调试出现bug造成crash时，左侧窗口选择Breakpoint界面.
-![creash](/img/breakpoint_1.jpg)
+![creash](/zunda/img/breakpoint_1.jpg)
 
 
 点击最底端的"+"按钮，添加Add Exception BreakPoint，这个就是捕获所有的exception, 貌似stackoverflow上说，bad_access那种错误无法捕获的，这个用于捕获那些SIGSEGV 的错误
-![creash](/img/breakpoint_2.jpg)
-![creash](/img/breakpoint_3.jpg)
+![creash](/zunda/img/breakpoint_2.jpg)
+![creash](/zunda/img/breakpoint_3.jpg)
 
 Symbolic breakpoint的添加前两步和一基本是一样的，只是在第二步选择的时候选 Add Symbolic BreakPoint,添加完成之后添加上objc_exception_throw
-![creash](/img/breakpoint_4.jpg)
+![creash](/zunda/img/breakpoint_4.jpg)
 
 完成，添加完成只两个断点之后，程序中很多异常也可以捕获了，直接定位到出问题的位置。当然程序中最好也加上异常处理的代码，可以参考这个处理，一般都是这个方式处理的.
 
@@ -91,8 +91,8 @@ __预处理-->编译-->汇编-->链接-->打包__
 
 作为一种新的模式，MVP与MVC有着一个重大的区别：在MVP中View并不直接使用Model，它们之间的通信是通过Presenter (MVC中的Controller)来进行的，所有的交互都发生在Presenter内部，而在MVC中View会直接从Model中读取数据而不是通过 Controller。<br>
 
-![mvc](/img/MVC.jpg)
-![mvp](/img/MVP.jpg)
+![mvc](/zunda/img/MVC.jpg)
+![mvp](/zunda/img/MVP.jpg)
 
 #### MVC存在的问题
 
@@ -113,7 +113,7 @@ MVC里，View是可以直接访问Model的！从而，View里会包含Model信�
 
 MVVM（Model-View-ViewModel）框架的由来便是MVP（Model-View-Presenter）模式与WPF结合的应用方式时发展演变过来的一种新型架构框架,MVVM 模式便是使用的是__数据绑定__基础架构.View绑定到ViewModel，然后执行一些命令在向它请求一个动作。而反过来，ViewModel跟Model通讯，告诉它更新来响应UI.
 
-![MVVM](/img/MVVM.jpg)
+![MVVM](/zunda/img/MVVM.jpg)
 
 #### MVVM优点
 

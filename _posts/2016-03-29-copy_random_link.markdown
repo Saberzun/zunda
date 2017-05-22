@@ -14,7 +14,7 @@ tags:
 ## 题目
 有一个链表L,其每个节点有2个指针，一个指针next指向链表的下个节点，另一个random随机指向链表中的任一个节点，可能是自己或者为空，写一个程序，要求复制这个链表的结构并分析其复杂性
 
-![赋值链表random](/img/copy_random_link.jpg)
+![赋值链表random](/zunda/img/copy_random_link.jpg)
 
 ## 思路
 如上图所示，复制原链表，需要先将原链表数据节点翻倍并顺序连接
